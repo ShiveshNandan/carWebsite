@@ -1,10 +1,17 @@
 import Image from 'next/image'
-import { Hero } from "@/components";
+import { CarCard, CarDetails, Hero } from "@/components";
+import CarCatalogue from '@/components/CarCatalogue';
+import {  HomeProps } from "@/types";
 
-export default function Home() {
+// import { fetchCars } from '@/utils';
+
+export default async function Home() {
+
   return (
     <main className='overflow-hidden'>
       <Hero/>
+      <CarCatalogue  />
+      
     </main>
   )
 }
