@@ -1,6 +1,6 @@
 import Image from 'next/image'
 
-const CustomFilter = () => {
+const CustomFilter = (promps:any) => {
   return (
     <div>
       yo
