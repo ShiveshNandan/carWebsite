@@ -1,42 +1,63 @@
-// "use client";
+"use client";
 import { fetchCars } from '@/utils';
 import Image from 'next/image'
 import SearchBar from './SearchBar'
 // import updatese from './SearchBar'
 import CustomFilter from './CustomFilter'
 import CarCard from './CarCard';
-// import { useSearchParams } from 'next/navigation';
-// import {  HomeProps } from "@/types";
+// import { manufacturers } from '@/constants';
+import { useSearchParams } from 'next/navigation';
+// import { setInterval } from 'timers';
+import {  HomeProps } from "@/types";
 // import { CarCard, ShowMore, SearchBar, CustomFilter, Hero } from "@components";
 
-interface FilterProps {
-  manufacturer: "bmw", 
-  // manufacturer?: string, 
-    // year: 2022, 
-    year: number, 
-    fuel: string, 
-    limit: number, 
-    // model: "m8"
-    model: string
-}
-interface HomeProps {
-  searchParams: FilterProps;
-}
+// interface FilterProps {
+//   // manufacturer: "bmw", 
+//   manufacturer?: string, 
+//     // year: 2022, 
+//     year: number, 
+//     fuel: string, 
+//     limit: number, 
+//     // model: "m8"
+//     model: string
+// }
+// interface HomeProps {
+//   searchParams: FilterProps;
+// }
 // const searchParams: any;
 
-export default async function CarCatalogue({ searchParams } : HomeProps) {
+export default function CarCatalogue({ searchParams } : HomeProps) {
+
+  const searchParam = useSearchParams()
+ 
+  const manufacturer = searchParam.get('manufacturer') as string;
+  const year = Number(searchParam.get('year')) || 2022;
+  const fuel = searchParam.get('fuel') as string || "gas";
+  const limit = Number(searchParam.get('limit')) || 5;
+  const model = searchParam.get('model') as string || "tr";
+  // const {searchParam.get('manufacturer') as string} = Ap;
+  
 // const CarCatalogue = async ({ searchParams } : HomeProps) => {
-  const allCars = await fetchCars({
+  const allCars = fetchCars({
     // manufacturer: "bmw",
-    manufacturer: searchParams?.manufacturer || "",
+    manufacturer: manufacturer || "",
     // manufacturer: searchParams?.manufacturer,
-    year: searchParams?.year || 2022,
-    fuel: searchParams?.fuel || "",
-    limit: searchParams?.limit || 5,
-    model: searchParams?.model || "",
+    year: year || 2022,
+    fuel: fuel || "",
+    limit: limit || 5,
+    model: model || "",
     // manufacturer: ''
   });
-  console.log(allCars);
+  console.log(manufacturer);
+  console.log(year);
+  console.log(fuel);
+  console.log(limit);
+  console.log(model);
+  function name(a : any) {
+    console.log(a);
+  }
+  name(allCars);
+  name(fetchCars);
   const isDataEmpty = !Array.isArray(allCars) || allCars.length < 1 || !allCars;
   return (
     <div className="mt-12 padding-x padding-y max-width" id='discover'>
