@@ -1,4 +1,5 @@
 "use client";
+import useSWR from "swr";
 import { fetchCars } from '@/utils';
 import Image from 'next/image'
 import SearchBar from './SearchBar'
@@ -28,7 +29,7 @@ import ShowMore from './ShowMore';
 // }
 // const searchParams: any;
 
-export default async function CarCatalogue() {
+export default function CarCatalogue() {
 
   const searchParam = useSearchParams()
  
@@ -40,16 +41,39 @@ export default async function CarCatalogue() {
   // const {searchParam.get('manufacturer') as string} = Ap;
   
 // const CarCatalogue = async ({ searchParams } : HomeProps) => {
-  const allCars = await fetchCars({
-    // manufacturer: "bmw",
-    // manufacturer: searchParams?.manufacturer,
+
+
+
+  // const allCars =  fetchCars({
+  //   manufacturer: manufacturer || "",
+  //   year: year || 2022,
+  //   fuel: fuel || "",
+  //   limit: limit || 5,
+  //   model: model || "",
+  // });
+
+
+
+
+  const searchKey = JSON.stringify({
+    manufacturer,
+    year,
+    fuel,
+    limit,
+    model,
+  });
+  const { data: allCars} = useSWR(['carData',searchKey], () =>
+  fetchCars({
     manufacturer: manufacturer || "",
     year: year || 2022,
     fuel: fuel || "",
     limit: limit || 5,
     model: model || "",
-    // manufacturer: ''
-  });
+  })
+);
+
+
+
   // console.log(manufacturer);
   // console.log(year);
   // console.log(fuel);
