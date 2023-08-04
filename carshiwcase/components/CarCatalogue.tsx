@@ -8,7 +8,7 @@ import CarCard from './CarCard';
 // import { manufacturers } from '@/constants';
 import { useSearchParams } from 'next/navigation';
 // import { setInterval } from 'timers';
-import {  HomeProps } from "@/types";
+// import {  HomeProps } from "@/types";
 import { fuels, yearsOfProduction } from '@/constants';
 import ShowMore from './ShowMore';
 // import { CarCard, ShowMore, SearchBar, CustomFilter, Hero } from "@components";
@@ -28,7 +28,7 @@ import ShowMore from './ShowMore';
 // }
 // const searchParams: any;
 
-export default function CarCatalogue() {
+export default async function CarCatalogue() {
 
   const searchParam = useSearchParams()
  
@@ -36,11 +36,11 @@ export default function CarCatalogue() {
   const year = Number(searchParam.get('year')) || 2022;
   const fuel = searchParam.get('fuel') as string || "gas";
   const limit = Number(searchParam.get('limit')) || 5;
-  const model = searchParam.get('model') as string || "tr";
+  const model = searchParam.get('model') as string || "";
   // const {searchParam.get('manufacturer') as string} = Ap;
   
 // const CarCatalogue = async ({ searchParams } : HomeProps) => {
-  const allCars = fetchCars({
+  const allCars = await fetchCars({
     // manufacturer: "bmw",
     // manufacturer: searchParams?.manufacturer,
     manufacturer: manufacturer || "",
@@ -55,12 +55,12 @@ export default function CarCatalogue() {
   // console.log(fuel);
   // console.log(limit);
   // console.log(model);
+  const isDataEmpty = !Array.isArray(allCars) || allCars.length < 1 || !allCars;
   function name(a : any) {
     console.log(a);
   }
-  name(allCars);
-  name(fetchCars);
-  const isDataEmpty = !Array.isArray(allCars) || allCars.length < 1 || !allCars;
+  name(Array(allCars));
+  // name(fetchCars);
   return (
     <div className="mt-12 padding-x padding-y max-width" id='discover'>
       <div className="home__text-container">
@@ -76,24 +76,24 @@ export default function CarCatalogue() {
         </div>
       </div>
       {!isDataEmpty ? (
-        <section>
-          WE HAVE CARS
-          <div className="home__cars-wrapper">
-            {allCars?.map((car) => (
-              <CarCard car={car} />
-            ))}
-          </div>
-          <ShowMore
-            pageNumber={(limit ||10) /10}
-            isNext = {(limit || 10) > allCars.length}
-          />
-        </section>
-      ) : (
-        <div className="home__error-container">
-          <h2 className='text-black text-x1 font-bold'>Opps, no results</h2>
-          {/* <p>{allCars?.message}</p> */}
-        </div>
-      )}
+          <section>
+            <div className='home__cars-wrapper'>
+              {allCars.map((car) => (
+                <CarCard car={car} />
+              ))}
+            </div>
+
+            <ShowMore
+              pageNumber={(limit || 10) / 10}
+              isNext={(limit || 10) > allCars.length}
+            />
+          </section>
+        ) : (
+          <div className='home__error-container'>
+            <h2 className='text-black text-xl font-bold'>Oops, no results</h2>
+            <p>{allCars?.message}</p>
+            </div>
+        )}
     </div>
   );
 }

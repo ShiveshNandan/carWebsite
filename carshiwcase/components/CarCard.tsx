@@ -5,12 +5,14 @@ import { CarProps } from "@/types";
 import CustomButton from './CustomButton';
 import CarDetails from './CarDetails';
 import { generateCarImageUrl } from '@/utils';
+
+
 interface CarCardProps {
     car : CarProps;
 }
 const CarCard = ({car} : CarCardProps) => {
 
-    const {city_mpg, year , make , model , transmission,drive} = car;
+    const {city_mpg,  make , model , transmission,drive} = car;
     const [IsOpen, setIsOpen] = useState(false)
 
 

@@ -12,11 +12,11 @@ export async function fetchCars(filters: FilterProps) {
 
   var gg = "audi";
   const headers = {
-    "X-RapidAPI-Key": "e5707c7c99msh0af3d890f56b804p157ce3jsnfd9fc98a9e63",
+    "X-RapidAPI-Key": '6a64bc4673msh88a595649bbfe51p1cc8d2jsn30204187bed2',
     "X-RapidAPI-Host": "cars-by-api-ninjas.p.rapidapi.com",
   };
 
-  // const response = await fetch (`https://cars-by-api-ninjas.p.rapidapi.com/v1/cars?make=bmw&limit=4`, {headers : headers});
+  // const response = await fetch (`https://cars-by-api-ninjas.p.rapidapi.com/v1/cars?make=bmw`, {headers : headers});
   // const response = await fetch (`https://cars-by-api-ninjas.p.rapidapi.com/v1/cars?make=${manufacturer}`, {headers : headers});
   // const response = await fetch (`https://cars-by-api-ninjas.p.rapidapi.com/v1/cars?make=${manufacturer}&year=${year}&model=${model}`, {headers : headers});
   const response = await fetch(

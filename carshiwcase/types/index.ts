@@ -28,13 +28,10 @@ export interface CarProps {
   year: number;
 }
 export interface FilterProps {
-  // manufacturer: "bmw", 
   manufacturer?: string, 
-    // year: 2022, 
     year?: number, 
     fuel?: string, 
     limit?: number, 
-    // model: "m8"
     model?: string
 }
 
@@ -49,5 +46,4 @@ export interface OptionProps {
 export interface ConstFProps {
   title:string,
   options: OptionProps[];
-  // options: {title:string, value:any};
 }
